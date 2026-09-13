@@ -44,13 +44,38 @@
     }
 
     header {
-      text-align: center;
-      padding: 12px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 0;
     }
 
     h1 {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       color: var(--primary);
+    }
+
+    /* Selector chọn bài học */
+    .lesson-selector {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .lesson-select {
+      padding: 6px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      color: var(--primary);
+      font-weight: bold;
+      font-size: 0.95rem;
+      outline: none;
+      cursor: pointer;
     }
 
     .nav-tabs {
@@ -93,7 +118,7 @@
 
     /* Flashcard Styles */
     .flashcard {
-      min-height: 220px;
+      min-height: 230px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -222,6 +247,12 @@
       color: #991b1b;
     }
 
+    .tag-container {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
     .tag {
       display: inline-block;
       padding: 2px 8px;
@@ -229,7 +260,11 @@
       border-radius: 4px;
       background: #e0e7ff;
       color: var(--primary);
-      margin-bottom: 8px;
+    }
+
+    .tag-lesson {
+      background: #fef3c7;
+      color: #d97706;
     }
   </style>
 </head>
@@ -237,7 +272,15 @@
 
   <div class="container">
     <header>
-      <h1>JLPT N2 - 第2課 Vocabulary</h1>
+      <h1>JLPT N2 Vocabulary</h1>
+      <div class="lesson-selector">
+        <label for="lessonSelect">Chọn bài học:</label>
+        <select id="lessonSelect" class="lesson-select" onchange="changeLesson()">
+          <option value="all">Tất cả bài học</option>
+          <option value="1">Bài 1: Quan hệ con người</option>
+          <option value="2" selected>Bài 2: Tính cách & Ưu/Nhược điểm</option>
+        </select>
+      </div>
     </header>
 
     <div class="nav-tabs">
@@ -249,7 +292,10 @@
     <!-- FLASHCARD VIEW -->
     <div id="flashcard-view">
       <div class="card flashcard" onclick="toggleCardFlip()">
-        <span class="tag" id="fc-category">Danh mục</span>
+        <div class="tag-container">
+          <span class="tag tag-lesson" id="fc-lesson">Bài 2</span>
+          <span class="tag" id="fc-category">Danh mục</span>
+        </div>
         <div class="jp-text" id="fc-jp">Từ vựng</div>
         <div class="reading-text" id="fc-reading">Cách đọc</div>
         <div class="vn-text hidden" id="fc-meaning">Nghĩa tiếng Việt</div>
@@ -267,7 +313,10 @@
     <!-- QUIZ VIEW -->
     <div id="quiz-view" class="hidden">
       <div class="card">
-        <span class="tag" id="quiz-category">Quiz</span>
+        <div class="tag-container">
+          <span class="tag tag-lesson" id="quiz-lesson">Bài 2</span>
+          <span class="tag" id="quiz-category">Quiz</span>
+        </div>
         <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 4px;">Chọn nghĩa đúng cho từ sau:</p>
         <div class="jp-text" id="quiz-jp">Từ vựng</div>
         <div class="reading-text" id="quiz-reading">Cách đọc</div>
@@ -288,89 +337,121 @@
   </div>
 
   <script>
-    const vocabData = [
-      // 1. 性格（せいかく）— Tính cách
-      { jp: "積極的", reading: "せっきょくてき", vn: "Tích cực, chủ động", cat: "Tính cách", exJp: "彼は積極的な性格です。", exVn: "Anh ấy có tính cách tích cực/chủ động." },
-      { jp: "消極的", reading: "しょうきょくてき", vn: "Tiêu cực, thụ động", cat: "Tính cách", exJp: "彼は少し消極的です。", exVn: "Anh ấy hơi thụ động." },
-      { jp: "おとなしい", reading: "おとなしい", vn: "Hiền, ít nói, trầm", cat: "Tính cách", exJp: "彼女はおとなしい人です。", exVn: "Cô ấy là người hiền, ít nói." },
-      { jp: "やかましい", reading: "やかましい", vn: "Ồn ào, ầm ĩ", cat: "Tính cách", exJp: "やかましい声。", exVn: "Giọng nói ồn ào." },
-      { jp: "慎重", reading: "しんちょう", vn: "Thận trọng", cat: "Tính cách", exJp: "仕事では慎重な性格のほうがいいと思います。", exVn: "Tôi nghĩ trong công việc, tính cách thận trọng thì tốt hơn." },
-      { jp: "そそっかしい", reading: "そそっかしい", vn: "Hấp tấp, cẩu thả", cat: "Tính cách", exJp: "彼はそそっかしくて、よくミスをします。", exVn: "Anh ấy hấp tấp nên thường xuyên mắc lỗi." },
-      { jp: "きちんとした", reading: "きちんとした", vn: "Chỉn chu, ngăn nắp", cat: "Tính cách", exJp: "きちんとした服を着る。", exVn: "Mặc quần áo chỉn chu." },
-      { jp: "だらしない", reading: "だらしない", vn: "Luộm thuộm, bê bối", cat: "Tính cách", exJp: "だらしない 생활。", exVn: "Lối sống bê bối." },
-      { jp: "器用な", reading: "きような", vn: "Khéo léo", cat: "Tính cách", exJp: "彼女は手先が器用だ。", exVn: "Cô ấy có bàn tay khéo léo." },
-      { jp: "不器用な", reading: "ぶきような", vn: "Vụng về", cat: "Tính cách", exJp: "私は手先が不器用です。", exVn: "Tôi vụng về trong việc sử dụng đôi tay." },
-      { jp: "要領がいい", reading: "ようりょうがいい", vn: "Biết cách làm việc, nhanh nhạy", cat: "Tính cách", exJp: "彼は要領がいい。", exVn: "Anh ấy xử lý công việc rất tháo vát." },
-      { jp: "要領が悪い", reading: "ようりょうがわるい", vn: "Làm việc không hiệu quả", cat: "Tính cách", exJp: "私は要領が悪い。", exVn: "Tôi làm việc vụng về/không hiệu quả." },
-      { jp: "謙虚な", reading: "けんきょな", vn: "Khiêm tốn", cat: "Tính cách", exJp: "謙虚な態度。", exVn: "Thái độ khiêm tốn." },
-      { jp: "生意気な", reading: "なまいきな", vn: "Hỗn, láo, xấc xược", cat: "Tính cách", exJp: "生意気な態度をとる。", exVn: "Có thái độ xấc xược." },
-      { jp: "勘が鋭い", reading: "かんがするどい", vn: "Trực giác nhạy bén", cat: "Tính cách", exJp: "彼女は勘が鋭い。", exVn: "Trực giác của cô ấy rất nhạy bén." },
-      { jp: "勘が鈍い", reading: "かんがにぶい", vn: "Trực giác kém, chậm cảm nhận", cat: "Tính cách", exJp: "私は勘が鈍い。", exVn: "Trực giác của tôi khá chậm chạp." },
-      { jp: "弱気な", reading: "よわきな", vn: "Yếu thế, thiếu tự tin", cat: "Tính cách", exJp: "弱気な発言。", exVn: "Phát ngôn thiếu tự tin." },
-      { jp: "強気な", reading: "つよきな", vn: "Mạnh dạn, cứng rắn", cat: "Tính cách", exJp: "強気な姿勢。", exVn: "Tư thế cứng rắn." },
+    const allVocabData = [
+      // ==================== BÀI 1 ====================
+      { lesson: 1, jp: "知り合い", reading: "しりあい", vn: "Người quen", cat: "Mối quan hệ", exJp: "彼とは知り合いです。", exVn: "Tôi với anh ấy là người quen." },
+      { lesson: 1, jp: "知り合う", reading: "しりあう", vn: "Quen biết nhau", cat: "Mối quan hệ", exJp: "パーティーで知り合いました。", exVn: "Chúng tôi quen nhau ở buổi tiệc." },
+      { lesson: 1, jp: "仲良し", reading: "なかよし", vn: "Bạn thân thiết", cat: "Mối quan hệ", exJp: "私たちは仲良しです。", exVn: "Chúng tôi là bạn thân." },
+      { lesson: 1, jp: "文通する", reading: "ぶんつうする", vn: "Trao đổi thư từ", cat: "Giao tiếp", exJp: "海外の人と文通しています。", exVn: "Tôi đang trao đổi thư từ với người nước ngoài." },
+      { lesson: 1, jp: "一言", reading: "ひとこと", vn: "Một lời, đôi lời", cat: "Giao tiếp", exJp: "一言お礼を言いたいです。", exVn: "Tôi muốn nói một lời cảm ơn." },
+      { lesson: 1, jp: "お辞儀", reading: "おじぎ", vn: "Cúi chào", cat: "Hành vi", exJp: "丁寧にお辞儀をする。", exVn: "Cúi chào một cách lịch sự." },
 
-      // 2. 長所（ちょうしょ）— Ưu điểm
-      { jp: "頼もしい", reading: "たのもしい", vn: "Đáng tin cậy, đáng trông cậy (năng lực)", cat: "Ưu điểm", exJp: "彼は頼もしい先輩です。", exVn: "Anh ấy là một đàn anh đáng tin cậy." },
-      { jp: "頼りになる", reading: "たよりになる", vn: "Có thể dựa vào (thực tế)", cat: "Ưu điểm", exJp: "困ったとき、彼はいつも頼りになります。", exVn: "Khi gặp khó khăn, anh ấy luôn là người có thể dựa vào." },
-      { jp: "礼儀正しい", reading: "れいぎただしい", vn: "Lễ phép, lịch sự", cat: "Ưu điểm", exJp: "彼はとても礼儀正しい人です。", exVn: "Anh ấy là người rất lễ phép." },
-      { jp: "冷静な", reading: "れいせいな", vn: "Bình tĩnh, điềm tĩnh", cat: "Ưu điểm", exJp: "問題が起きても、彼は冷静です。", exVn: "Dù xảy ra vấn đề, anh ấy vẫn bình tĩnh." },
-      { jp: "陽気な", reading: "ようきな", vn: "Vui vẻ, hoạt bát", cat: "Ưu điểm", exJp: "彼は陽気な性格です。", exVn: "Anh ấy có tính cách vui vẻ." },
-      { jp: "ユーモア", reading: "ユーモア", vn: "Khiếu hài hước", cat: "Ưu điểm", exJp: "彼はユーモアがあります。", exVn: "Anh ấy có khiếu hài hước." },
-      { jp: "はきはき", reading: "はきはき", vn: "Rõ ràng, dứt khoát, hoạt bát", cat: "Ưu điểm", exJp: "彼女ははきはき話します。", exVn: "Cô ấy nói chuyện rõ ràng, dứt khoát." },
-      { jp: "にこにこ", reading: "にこにこ", vn: "Cười tươi, mím cười vui vẻ", cat: "Ưu điểm", exJp: "彼はいつもにこにこしています。", exVn: "Anh ấy lúc nào cũng tươi cười." },
-      { jp: "純粋な", reading: "じゅんすいな", vn: "Thuần khiết, trong sáng", cat: "Ưu điểm", exJp: "彼は純粋な心を持っています。", exVn: "Anh ấy có một tâm hồn trong sáng." },
-      { jp: "穏やかな", reading: "おだやかな", vn: "Ôn hòa, dịu dàng, yên bình", cat: "Ưu điểm", exJp: "彼は穏やかな性格です。", exVn: "Anh ấy có tính cách ôn hòa." },
+      // ==================== BÀI 2 (ĐẦY ĐỦ NỘI DUNG MỚI) ====================
+      // 1. Tính cách
+      { lesson: 2, jp: "積極的", reading: "せっきょくてき", vn: "Tích cực, chủ động", cat: "Tính cách", exJp: "彼は積極的な性格です。", exVn: "Anh ấy có tính cách tích cực/chủ động." },
+      { lesson: 2, jp: "消極的", reading: "しょうきょくてき", vn: "Tiêu cực, thụ động", cat: "Tính cách", exJp: "彼は少し消極的です。", exVn: "Anh ấy hơi thụ động." },
+      { lesson: 2, jp: "おとなしい", reading: "おとなしい", vn: "Hiền, ít nói, trầm", cat: "Tính cách", exJp: "彼女はおとなしい人です。", exVn: "Cô ấy là người hiền, ít nói." },
+      { lesson: 2, jp: "やかましい", reading: "やかましい", vn: "Ồn ào, ầm ĩ", cat: "Tính cách", exJp: "やかましい声。", exVn: "Giọng nói ồn ào." },
+      { lesson: 2, jp: "慎重", reading: "しんちょう", vn: "Thận trọng", cat: "Tính cách", exJp: "仕事では慎重な性格のほうがいいと思います。", exVn: "Tôi nghĩ trong công việc, tính cách thận trọng thì tốt hơn." },
+      { lesson: 2, jp: "そそっかしい", reading: "そそっかしい", vn: "Hấp tấp, cẩu thả", cat: "Tính cách", exJp: "彼はそそっかしくて、よくミスをします。", exVn: "Anh ấy hấp tấp nên thường xuyên mắc lỗi." },
+      { lesson: 2, jp: "きちんとした", reading: "きちんとした", vn: "Chỉn chu, ngăn nắp", cat: "Tính cách", exJp: "きちんとした服を着る。", exVn: "Mặc quần áo chỉn chu." },
+      { lesson: 2, jp: "だらしない", reading: "だらしない", vn: "Luộm thuộm, bê bối", cat: "Tính cách", exJp: "だらしない生活。", exVn: "Lối sống bê bối." },
+      { lesson: 2, jp: "器用な", reading: "きような", vn: "Khéo léo", cat: "Tính cách", exJp: "彼女は手先が器用だ。", exVn: "Cô ấy có bàn tay khéo léo." },
+      { lesson: 2, jp: "不器用な", reading: "ぶきような", vn: "Vụng về", cat: "Tính cách", exJp: "私は手先が不器用です。", exVn: "Tôi vụng về trong việc sử dụng đôi tay." },
+      { lesson: 2, jp: "要領がいい", reading: "ようりょうがいい", vn: "Biết cách làm việc, nhanh nhạy", cat: "Tính cách", exJp: "彼は要領がいい。", exVn: "Anh ấy xử lý công việc rất tháo vát." },
+      { lesson: 2, jp: "要領が悪い", reading: "ようりょうがわるい", vn: "Làm việc không hiệu quả", cat: "Tính cách", exJp: "私は要領が悪い。", exVn: "Tôi làm việc vụng về/không hiệu quả." },
+      { lesson: 2, jp: "謙虚な", reading: "けんきょな", vn: "Khiêm tốn", cat: "Tính cách", exJp: "謙虚な態度。", exVn: "Thái độ khiêm tốn." },
+      { lesson: 2, jp: "生意気な", reading: "なまいきな", vn: "Hỗn, láo, xấc xược", cat: "Tính cách", exJp: "生意気な態度をとる。", exVn: "Có thái độ xấc xược." },
+      { lesson: 2, jp: "勘が鋭い", reading: "かんがするどい", vn: "Trực giác nhạy bén", cat: "Tính cách", exJp: "彼女は勘が鋭い。", exVn: "Trực giác của cô ấy rất nhạy bén." },
+      { lesson: 2, jp: "勘が鈍い", reading: "かんがにぶい", vn: "Trực giác kém, chậm cảm nhận", cat: "Tính cách", exJp: "私は勘が鈍い。", exVn: "Trực giác của tôi khá chậm chạp." },
+      { lesson: 2, jp: "弱気な", reading: "よわきな", vn: "Yếu thế, thiếu tự tin", cat: "Tính cách", exJp: "弱気な発言。", exVn: "Phát ngôn thiếu tự tin." },
+      { lesson: 2, jp: "強気な", reading: "つよきな", vn: "Mạnh dạn, cứng rắn", cat: "Tính cách", exJp: "強気な姿勢。", exVn: "Tư thế cứng rắn." },
 
-      // 3. 短所（たんしょ）— Nhược điểm
-      { jp: "わがまま", reading: "わがまま", vn: "Ích kỷ, chỉ làm theo ý mình", cat: "Nhược điểm", exJp: "彼はわがままな人です。", exVn: "Anh ấy là người ích kỷ." },
-      { jp: "強引", reading: "ごういん", vn: "Cưỡng ép, áp đặt, ép buộc", cat: "Nhược điểm", exJp: "彼は強引に仕事を進めました。", exVn: "Anh ấy đã áp đặt và tiến hành công việc một cách cưỡng ép." },
-      { jp: "厚かましい", reading: "あつかましい", vn: "Trơ trẽn, mặt dày", cat: "Nhược điểm", exJp: "そんなことを頼むなんて、厚かましい。", exVn: "Đòi hỏi chuyện như vậy thật là trơ trẽn." },
-      { jp: "図々しい", reading: "ずうずうしい", vn: "Trơ tráo, không biết ngại", cat: "Nhược điểm", exJp: "図々しいぶる。", exVn: "Tỏ thái độ trơ tráo." },
-      { jp: "けちな", reading: "けちな", vn: "Keo kiệt", cat: "Nhược điểm", exJp: "彼はお金にけちです。", exVn: "Anh ấy rất keo kiệt về tiền bạc." },
-      { jp: "乱暴な", reading: "らんぼうな", vn: "Thô bạo, cục cần", cat: "Nhược điểm", exJp: "乱暴な言葉を使わないでください。", exVn: "Xin đừng dùng lời lẽ thô bạo." },
-      { jp: "気が荒い", reading: "きがあらい", vn: "Nóng tính, hung dữ", cat: "Nhược điểm", exJp: "彼は気が荒いので、注意してください。", exVn: "Anh ấy khá nóng tính nên hãy cẩn thận." },
-      { jp: "卑怯な", reading: "ひきょうな", vn: "Hèn hạ, hèn nhát, chơi không đẹp", cat: "Nhược điểm", exJp: "そんなやり方は卑怯だ。", exVn: "Cách làm như vậy thật hèn hạ." },
-      { jp: "平気", reading: "へいき", vn: "Bình thản, không sao", cat: "Trạng thái", exJp: "彼は失敗しても平気です。", exVn: "Dù thất bại anh ấy vẫn bình thản." },
-      { jp: "裏切る", reading: "うらぎる", vn: "Phản bội", cat: "Hành vi", exJp: "友達を裏切ってはいけません。", exVn: "Không được phản bội bạn bè." },
-      { jp: "威張る", reading: "いばる", vn: "Lên mặt, vênh váo", cat: "Hành vi", exJp: "彼はいつも威張っています。", exVn: "Anh ta lúc nào cũng lên mặt." },
-      { jp: "ふざける", reading: "ふざける", vn: "Đùa cợt, nghịch, làm trò", cat: "Hành vi", exJp: "ふざけないでください。", exVn: "Đừng đùa nữa / Đừng có làm trò." },
-      { jp: "飽きる", reading: "あきる", vn: "Chán, thấy ngán", cat: "Trạng thái", exJp: "同じ仕事をしていると飽きます。", exVn: "Làm cùng một công việc mãi thì sẽ chán." },
-      { jp: "飽きっぽい", reading: "あきっぽい", vn: "Nhanh chán, cả thèm chóng chán", cat: "Nhược điểm", exJp: "私は飽きっぽい性格です。", exVn: "Tôi có tính nhanh chán." },
-      { jp: "慌てる", reading: "あわてる", vn: "Cuống, hoảng, luống cuống", cat: "Trạng thái", exJp: "急な質問に慌ててしまいました。", exVn: "Tôi đã bị luống cuống trước câu hỏi bất ngờ." },
-      { jp: "呑気な", reading: "のんきな", vn: "Vô tư, thảnh thơi (đôi khi vô tư quá mức)", cat: "Tính cách", exJp: "彼は試験の前なのに、呑気に遊んでいる。", exVn: "Đã sắp thi mà anh ta vẫn vô tư đi chơi." },
-      { jp: "のんびり", reading: "のんびり", vn: "Thong thả, thư thả", cat: "Trạng thái", exJp: "週末はのんびり過ごしたい。", exVn: "Cuối tuần tôi muốn nghỉ ngơi thong thả." },
+      // 2. Ưu điểm
+      { lesson: 2, jp: "頼もしい", reading: "たのもしい", vn: "Đáng tin cậy (cảm giác có năng lực)", cat: "Ưu điểm", exJp: "彼は頼もしい先輩です。", exVn: "Anh ấy là một đàn anh đáng tin cậy." },
+      { lesson: 2, jp: "頼りになる", reading: "たよりになる", vn: "Có thể dựa vào (thực tế)", cat: "Ưu điểm", exJp: "困ったとき、彼はいつも頼りになります。", exVn: "Khi gặp khó khăn, anh ấy luôn là người có thể dựa vào." },
+      { lesson: 2, jp: "礼儀正しい", reading: "れいぎただしい", vn: "Lễ phép, lịch sự", cat: "Ưu điểm", exJp: "彼はとても礼儀正しい人です。", exVn: "Anh ấy là người rất lễ phép." },
+      { lesson: 2, jp: "冷静な", reading: "れいせいな", vn: "Bình tĩnh, điềm tĩnh", cat: "Ưu điểm", exJp: "問題が起きても、彼は冷静です。", exVn: "Dù xảy ra vấn đề, anh ấy vẫn bình tĩnh." },
+      { lesson: 2, jp: "陽気な", reading: "ようきな", vn: "Vui vẻ, hoạt bát", cat: "Ưu điểm", exJp: "彼は陽気な性格です。", exVn: "Anh ấy có tính cách vui vẻ." },
+      { lesson: 2, jp: "ユーモア", reading: "ユーモア", vn: "Khiếu hài hước", cat: "Ưu điểm", exJp: "彼はユーモアがあります。", exVn: "Anh ấy có khiếu hài hước." },
+      { lesson: 2, jp: "はきはき", reading: "はきはき", vn: "Rõ ràng, dứt khoát, hoạt bát", cat: "Ưu điểm", exJp: "彼女ははきはき話します。", exVn: "Cô ấy nói chuyện rõ ràng, dứt khoát." },
+      { lesson: 2, jp: "にこにこ", reading: "にこにこ", vn: "Cười tươi, mỉm cười vui vẻ", cat: "Ưu điểm", exJp: "彼はいつもにこにこしています。", exVn: "Anh ấy lúc nào cũng tươi cười." },
+      { lesson: 2, jp: "純粋な", reading: "じゅんすいな", vn: "Thuần khiết, trong sáng", cat: "Ưu điểm", exJp: "彼は純粋な心を持っています。", exVn: "Anh ấy có một tâm hồn trong sáng." },
+      { lesson: 2, jp: "穏やかな", reading: "おだやかな", vn: "Ôn hòa, dịu dàng, yên bình", cat: "Ưu điểm", exJp: "彼は穏やかな性格です。", exVn: "Anh ấy có tính cách ôn hòa." },
+
+      // 3. Nhược điểm
+      { lesson: 2, jp: "わがまま", reading: "わがまま", vn: "Ích kỷ, chỉ làm theo ý mình", cat: "Nhược điểm", exJp: "彼はわがままな人です。", exVn: "Anh ấy là người ích kỷ." },
+      { lesson: 2, jp: "強引", reading: "ごういん", vn: "Cưỡng ép, áp đặt, ép buộc", cat: "Nhược điểm", exJp: "彼は強引に仕事を進めました。", exVn: "Anh ấy đã áp đặt và tiến hành công việc một cách cưỡng ép." },
+      { lesson: 2, jp: "厚かましい", reading: "あつかましい", vn: "Trơ trẽn, mặt dày", cat: "Nhược điểm", exJp: "そんなことを頼むなんて、厚かましい。", exVn: "Đòi hỏi chuyện như vậy thật là trơ trẽn." },
+      { lesson: 2, jp: "図々しい", reading: "ずうずうしい", vn: "Trơ tráo, không biết ngại", cat: "Nhược điểm", exJp: "図々しい振る舞い。", exVn: "Hành vi trơ tráo." },
+      { lesson: 2, jp: "けちな", reading: "けちな", vn: "Keo kiệt", cat: "Nhược điểm", exJp: "彼はお金にけちです。", exVn: "Anh ấy rất keo kiệt về tiền bạc." },
+      { lesson: 2, jp: "乱暴な", reading: "らんぼうな", vn: "Thô bạo, cục cằn", cat: "Nhược điểm", exJp: "乱暴な言葉を使わないでください。", exVn: "Xin đừng dùng lời lẽ thô bạo." },
+      { lesson: 2, jp: "気が荒い", reading: "きがあらい", vn: "Nóng tính, hung dữ", cat: "Nhược điểm", exJp: "彼は気が荒いので、注意してください。", exVn: "Anh ấy khá nóng tính nên hãy cẩn thận." },
+      { lesson: 2, jp: "卑怯な", reading: "ひきょうな", vn: "Hèn hạ, hèn nhát, chơi không đẹp", cat: "Nhược điểm", exJp: "そんなやり方は卑怯だ。", exVn: "Cách làm như vậy thật hèn hạ." },
+      { lesson: 2, jp: "平気", reading: "へいき", vn: "Bình thản, không sao", cat: "Trạng thái", exJp: "彼は失敗しても平気です。", exVn: "Dù thất bại anh ấy vẫn bình thản." },
+      { lesson: 2, jp: "裏切る", reading: "うらぎる", vn: "Phản bội", cat: "Hành vi", exJp: "友達を裏切ってはいけません。", exVn: "Không được phản bội bạn bè." },
+      { lesson: 2, jp: "威張る", reading: "いばる", vn: "Lên mặt, vênh váo", cat: "Hành vi", exJp: "彼はいつも威張っています。", exVn: "Anh ta lúc nào cũng lên mặt." },
+      { lesson: 2, jp: "ふざける", reading: "ふざける", vn: "Đùa cợt, nghịch, làm trò", cat: "Hành vi", exJp: "ふざけないでください。", exVn: "Đừng đùa nữa / Đừng có làm trò." },
+      { lesson: 2, jp: "飽きる", reading: "あきる", vn: "Chán, thấy ngán", cat: "Trạng thái", exJp: "同じ仕事をしていると飽きます。", exVn: "Làm cùng một công việc mãi thì sẽ chán." },
+      { lesson: 2, jp: "飽きっぽい", reading: "あきっぽい", vn: "Nhanh chán, cả thèm chóng chán", cat: "Nhược điểm", exJp: "私は飽きっぽい性格です。", exVn: "Tôi có tính nhanh chán." },
+      { lesson: 2, jp: "慌てる", reading: "あわてる", vn: "Cuống, hoảng, luống cuống", cat: "Trạng thái", exJp: "急な質問に慌ててしまいました。", exVn: "Tôi đã bị luống cuống trước câu hỏi bất ngờ." },
+      { lesson: 2, jp: "呑気な", reading: "のんきな", vn: "Vô tư, thảnh thơi (đôi khi vô tư quá mức)", cat: "Tính cách", exJp: "彼は試験の前なのに、呑気に遊んでいる。", exVn: "Đã sắp thi mà anh ta vẫn vô tư đi chơi." },
+      { lesson: 2, jp: "のんびり", reading: "のんびり", vn: "Thong thả, thư thả", cat: "Trạng thái", exJp: "週末はのんびり過ごしたい。", exVn: "Cuối tuần tôi muốn nghỉ ngơi thong thả." },
 
       // 4 & 5 & 6. Thẳng thắn, Tâm lý & Trạng thái
-      { jp: "率直", reading: "そっちょく", vn: "Thẳng thắn", cat: "Tính cách", exJp: "率直に言えば、私は反対です。", exVn: "Nói thẳng ra thì tôi phản đối." },
-      { jp: "心理", reading: "しんり", vn: "Tâm lý", cat: "Tâm lý", exJp: "人の心理を理解する。", exVn: "Hiểu tâm lý con người." },
-      { jp: "緊張", reading: "きんちょう", vn: "Căng thẳng, hồi hộp", cat: "Tâm lý", exJp: "面接で緊張しました。", exVn: "Tôi đã hồi hộp khi phỏng vấn." },
-      { jp: "どきどき", reading: "どきどき", vn: "Hồi hộp, tim đập thình thịch", cat: "Tâm lý", exJp: "試験の結果を待って、どきどきしています。", exVn: "Tôi hồi hộp chờ kết quả thi." },
-      { jp: "イライラする", reading: "いらいらす る", vn: "Bực bội, cáu kỉnh", cat: "Tâm lý", exJp: "仕事がうまくいかなくて、イライラしています。", exVn: "Công việc không thuận lợi nên tôi bực mình." },
-      { jp: "気楽", reading: "きらく", vn: "Thoải mái, nhẹ nhõm", cat: "Tâm lý", exJp: "気楽に考えてください。", exVn: "Hãy suy nghĩ thoải mái, đừng áp lực." },
-      { jp: "機嫌", reading: "きげん", vn: "Tâm trạng", cat: "Tâm lý", exJp: "今日は上司の機嫌がいい。", exVn: "Hôm nay tâm trạng sếp tốt." },
+      { lesson: 2, jp: "率直", reading: "そっちょく", vn: "Thẳng thắn", cat: "Tính cách", exJp: "率直に言えば、私は反対です。", exVn: "Nói thẳng ra thì tôi phản đối." },
+      { lesson: 2, jp: "心理", reading: "しんり", vn: "Tâm lý", cat: "Tâm lý", exJp: "人の心理を理解する。", exVn: "Hiểu tâm lý con người." },
+      { lesson: 2, jp: "緊張", reading: "きんちょう", vn: "Căng thẳng, hồi hộp", cat: "Tâm lý", exJp: "面接で緊張しました。", exVn: "Tôi đã hồi hộp khi phỏng vấn." },
+      { lesson: 2, jp: "どきどき", reading: "どきどき", vn: "Hồi hộp, tim đập thình thịch", cat: "Tâm lý", exJp: "試験の結果を待って、どきどきしています。", exVn: "Tôi hồi hộp chờ kết quả thi." },
+      { lesson: 2, jp: "イライラする", reading: "いらいらする", vn: "Bực bội, cáu kỉnh", cat: "Tâm lý", exJp: "仕事がうまくいかなくて、イライラしています。", exVn: "Công việc không thuận lợi nên tôi bực mình." },
+      { lesson: 2, jp: "気楽", reading: "きらく", vn: "Thoải mái, nhẹ nhõm", cat: "Tâm lý", exJp: "気楽に考えてください。", exVn: "Hãy suy nghĩ thoải mái, đừng áp lực." },
+      { lesson: 2, jp: "機嫌", reading: "きげん", vn: "Tâm trạng", cat: "Tâm lý", exJp: "今日は上司の機嫌がいい。", exVn: "Hôm nay tâm trạng sếp tốt." },
 
       // 7. Khác
-      { jp: "清潔な", reading: "せいけつな", vn: "Sạch sẽ", cat: "Trạng thái", exJp: "清潔な服を着てください。", exVn: "Hãy mặc quần áo sạch." },
-      { jp: "不潔な", reading: "ふけつな", vn: "Mất vệ sinh, bẩn", cat: "Trạng thái", exJp: "不潔な場所には入りたくありません。", exVn: "Tôi không muốn vào nơi mất vệ sinh." },
-      { jp: "見かけ", reading: "みかけ", vn: "Vẻ bề ngoài, diện mạo", cat: "Ngoại hình", exJp: "見かけだけで人を判断してはいけません。", exVn: "Không nên đánh giá người khác qua vẻ bề ngoài." },
-      { jp: "派手", reading: "はで", vn: "Sặc sỡ, nổi bật", cat: "Ngoại hình", exJp: "派手な服。", exVn: "Quần áo sặc sỡ." },
-      { jp: "地味", reading: "じみ", vn: "Giản dị, không nổi bật", cat: "Ngoại hình", exJp: "地味な服。", exVn: "Quần áo giản dị." },
+      { lesson: 2, jp: "嫌い", reading: "きらい", vn: "Ghét, không thích", cat: "Trạng thái", exJp: "私は人混みが嫌いです。", exVn: "Tôi không thích chỗ đông người." },
+      { lesson: 2, jp: "清潔な", reading: "せいけつな", vn: "Sạch sẽ", cat: "Trạng thái", exJp: "清潔な服を着てください。", exVn: "Hãy mặc quần áo sạch." },
+      { lesson: 2, jp: "不潔な", reading: "ふけつな", vn: "Mất vệ sinh, bẩn", cat: "Trạng thái", exJp: "不潔な場所には入りたくありません。", exVn: "Tôi không muốn vào nơi mất vệ sinh." },
+      { lesson: 2, jp: "見かけ", reading: "みかけ", vn: "Vẻ bề ngoài, diện mạo", cat: "Ngoại hình", exJp: "見かけだけで人を判断してはいけません。", exVn: "Không nên đánh giá người khác qua vẻ bề ngoài." },
+      { lesson: 2, jp: "派手", reading: "はで", vn: "Sặc sỡ, nổi bật", cat: "Ngoại hình", exJp: "派手な服。", exVn: "Quần áo sặc sỡ." },
+      { lesson: 2, jp: "地味", reading: "じみ", vn: "Giản dị, không nổi bật", cat: "Ngoại hình", exJp: "地味な服。", exVn: "Quần áo giản dị." },
 
       // 8. 語形成 & Cụm từ cuối bài
-      { jp: "怒りっぽい", reading: "おこりっぽい", vn: "Dễ nổi giận, nóng tính", cat: "語形成 (~っぽい)", exJp: "彼は怒りっぽい性格です。", exVn: "Anh ấy có tính nóng nảy." },
-      { jp: "忘れっぽい", reading: "わすれっぽい", vn: "Hay quên", cat: "語形成 (~っぽい)", exJp: "最近、忘れっぽくなりました。", exVn: "Gần đây tôi trở nên hay quên." },
-      { jp: "規則正しい", reading: "きそくだたしい", vn: "Đúng quy củ, điều độ", cat: "語形成 (~正しい)", exJp: "規則正しい生活をする。", exVn: "Sống có nề nếp, điều độ." },
-      { jp: "わざと", reading: "わざと", vn: "Cố ý, cố tình", cat: "Phó từ", exJp: "彼はわざと間違えました。", exVn: "Anh ấy cố tình làm sai." },
-      { jp: "一切～ない", reading: "いっさい～ない", vn: "Hoàn toàn không...", cat: "Phó từ", exJp: "私はお酒を一切飲みません。", exVn: "Tôi hoàn toàn không uống rượu." },
-      { jp: "めっきり", reading: "めっきり", vn: "Rõ rệt, hẳn đi", cat: "Phó từ", exJp: "最近、めっきり寒くなりました。", exVn: "Gần đây trời lạnh hẳn đi." },
-      { jp: "相変わらず", reading: "あいかわらず", vn: "Vẫn như trước, không thay đổi", cat: "Phó từ", exJp: "彼は相変わらず元気です。", exVn: "Anh ấy vẫn khỏe như trước." }
+      { lesson: 2, jp: "怒りっぽい", reading: "おこりっぽい", vn: "Dễ nổi giận, nóng tính", cat: "語形成 (~っぽい)", exJp: "彼は怒りっぽい性格です。", exVn: "Anh ấy có tính nóng nảy." },
+      { lesson: 2, jp: "忘れっぽい", reading: "わすれっぽい", vn: "Hay quên", cat: "語形成 (~っぽい)", exJp: "最近、忘れっぽくなりました。", exVn: "Gần đây tôi trở nên hay quên." },
+      { lesson: 2, jp: "規則正しい", reading: "きそくだたしい", vn: "Đúng quy củ, điều độ", cat: "語形成 (~正しい)", exJp: "規則正しい生活をする。", exVn: "Sống có nề nếp, điều độ." },
+      { lesson: 2, jp: "わざと", reading: "わざと", vn: "Cố ý, cố tình", cat: "Phó từ", exJp: "彼はわざと間違えました。", exVn: "Anh ấy cố tình làm sai." },
+      { lesson: 2, jp: "一切～ない", reading: "いっさい～ない", vn: "Hoàn toàn không...", cat: "Phó từ", exJp: "私はお酒を一切飲みません。", exVn: "Tôi hoàn toàn không uống rượu." },
+      { lesson: 2, jp: "めっきり", reading: "めっきり", vn: "Rõ rệt, hẳn đi", cat: "Phó từ", exJp: "最近、めっきり寒くなりました。", exVn: "Gần đây trời lạnh hẳn đi." },
+      { lesson: 2, jp: "相変わらず", reading: "あいかわらず", vn: "Vẫn như trước, không thay đổi", cat: "Phó từ", exJp: "彼は相変わらず元気です。", exVn: "Anh ấy vẫn khỏe như trước." }
     ];
 
+    let currentVocabList = [];
     let currentIndex = 0;
     let isFlipped = false;
+    let currentTab = 'flashcard';
+
+    // Lọc bài học
+    function changeLesson() {
+      const selectedLesson = document.getElementById('lessonSelect').value;
+      if (selectedLesson === 'all') {
+        currentVocabList = [...allVocabData];
+      } else {
+        currentVocabList = allVocabData.filter(item => item.lesson == selectedLesson);
+      }
+      currentIndex = 0;
+      
+      if (currentTab === 'flashcard') {
+        updateCard();
+      } else if (currentTab === 'quiz') {
+        loadQuiz();
+      } else if (currentTab === 'list') {
+        renderList();
+      }
+    }
 
     // Tab Switching
     function switchTab(tab) {
+      currentTab = tab;
       document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
       document.getElementById('flashcard-view').classList.add('hidden');
       document.getElementById('quiz-view').classList.add('hidden');
@@ -379,6 +460,7 @@
       if (tab === 'flashcard') {
         event.target.classList.add('active');
         document.getElementById('flashcard-view').classList.remove('hidden');
+        updateCard();
       } else if (tab === 'quiz') {
         event.target.classList.add('active');
         document.getElementById('quiz-view').classList.remove('hidden');
@@ -392,7 +474,9 @@
 
     // Flashcard Logic
     function updateCard() {
-      const item = vocabData[currentIndex];
+      if (currentVocabList.length === 0) return;
+      const item = currentVocabList[currentIndex];
+      document.getElementById('fc-lesson').innerText = `Bài ${item.lesson}`;
       document.getElementById('fc-category').innerText = item.cat;
       document.getElementById('fc-jp').innerText = item.jp;
       document.getElementById('fc-reading').innerText = item.reading;
@@ -410,7 +494,7 @@
       isFlipped = !isFlipped;
       if (isFlipped) {
         document.getElementById('fc-meaning').classList.remove('hidden');
-        if (vocabData[currentIndex].exJp) {
+        if (currentVocabList[currentIndex].exJp) {
           document.getElementById('fc-example').classList.remove('hidden');
         }
       } else {
@@ -420,37 +504,38 @@
     }
 
     function nextCard() {
-      currentIndex = (currentIndex + 1) % vocabData.length;
+      if (currentVocabList.length === 0) return;
+      currentIndex = (currentIndex + 1) % currentVocabList.length;
       updateCard();
     }
 
     function prevCard() {
-      currentIndex = (currentIndex - 1 + vocabData.length) % vocabData.length;
+      if (currentVocabList.length === 0) return;
+      currentIndex = (currentIndex - 1 + currentVocabList.length) % currentVocabList.length;
       updateCard();
     }
 
     // Quiz Logic
-    let currentQuizIndex = 0;
-
     function loadQuiz() {
-      currentQuizIndex = Math.floor(Math.random() * vocabData.length);
-      const item = vocabData[currentQuizIndex];
+      if (currentVocabList.length === 0) return;
+      const currentQuizIndex = Math.floor(Math.random() * currentVocabList.length);
+      const item = currentVocabList[currentQuizIndex];
       
+      document.getElementById('quiz-lesson').innerText = `Bài ${item.lesson}`;
       document.getElementById('quiz-category').innerText = item.cat;
       document.getElementById('quiz-jp').innerText = item.jp;
       document.getElementById('quiz-reading').innerText = item.reading;
       document.getElementById('quiz-next-btn').classList.add('hidden');
 
-      // Generate options (1 correct + 3 wrong)
+      // Tạo 4 lựa chọn (1 đúng + 3 sai)
       let options = [item.vn];
-      while (options.length < 4) {
-        let randItem = vocabData[Math.floor(Math.random() * vocabData.length)];
+      while (options.length < Math.min(4, currentVocabList.length)) {
+        let randItem = currentVocabList[Math.floor(Math.random() * currentVocabList.length)];
         if (!options.includes(randItem.vn)) {
           options.push(randItem.vn);
         }
       }
       
-      // Shuffle options
       options.sort(() => Math.random() - 0.5);
 
       const optionsContainer = document.getElementById('quiz-options');
@@ -490,7 +575,12 @@
       const container = document.getElementById('list-container');
       container.innerHTML = '';
 
-      vocabData.forEach(item => {
+      if (currentVocabList.length === 0) {
+        container.innerHTML = '<p style="text-align:center; color: var(--text-muted);">Không có từ vựng nào.</p>';
+        return;
+      }
+
+      currentVocabList.forEach(item => {
         const div = document.createElement('div');
         div.className = 'vocab-item';
         div.innerHTML = `
@@ -499,7 +589,10 @@
               <span class="vocab-jp">${item.jp}</span>
               <span class="vocab-reading">(${item.reading})</span>
             </div>
-            <span class="tag">${item.cat}</span>
+            <div>
+              <span class="tag tag-lesson">Bài ${item.lesson}</span>
+              <span class="tag">${item.cat}</span>
+            </div>
           </div>
           <div class="vocab-meaning">${item.vn}</div>
           ${item.exJp ? `<div class="vocab-ex">${item.exJp} → ${item.exVn}</div>` : ''}
@@ -508,8 +601,8 @@
       });
     }
 
-    // Init
-    updateCard();
+    // Khởi tạo ứng dụng
+    changeLesson();
   </script>
 </body>
 </html>
