@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#ffffff">
+<link rel="manifest" href="manifest.webmanifest">
+<title>JLPT N2 • Nhật ngữ mỗi ngày</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--text:#171923;--muted:#737887;--primary:#5b55e8;--primary2:#817cf3;--good:#20a464;--bad:#e05252;--line:#e8e9ef;--shadow:0 8px 24px rgba(25,30,60,.07)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;color:var(--text);padding-bottom:calc(76px + env(safe-area-inset-bottom));}button{font:inherit;border:0;cursor:pointer}
+.app{max-width:520px;margin:auto}.top{padding:calc(18px + env(safe-area-inset-top)) 18px 10px;background:#fff}.hello{font-size:14px;color:var(--muted)}h1{font-size:28px;margin:4px 0 0}.streak{margin-top:14px;background:linear-gradient(135deg,#625bea,#817cf3);color:#fff;border-radius:20px;padding:16px;box-shadow:var(--shadow)}.streak b{font-size:26px}.bar{height:8px;background:rgba(255,255,255,.3);border-radius:10px;margin-top:10px;overflow:hidden}.bar i{display:block;height:100%;background:#fff;border-radius:10px}
+main{padding:16px}.section-title{display:flex;justify-content:space-between;align-items:center;margin:6px 2px 10px}.section-title h2{font-size:18px;margin:0}.section-title span{font-size:13px;color:var(--muted)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:var(--shadow);margin-bottom:12px}.lesson{display:flex;gap:13px;align-items:center}.icon{width:48px;height:48px;border-radius:14px;background:#eeedff;display:grid;place-items:center;font-size:24px}.lesson h3{margin:0 0 3px;font-size:16px}.lesson p{margin:0;color:var(--muted);font-size:13px}.pill{margin-left:auto;background:#f0f0f6;color:#626675;border-radius:20px;padding:7px 10px;font-size:12px}.primary{width:100%;background:var(--primary);color:white;border-radius:14px;padding:14px;font-weight:700;margin-top:12px}.secondary{width:100%;background:#f0efff;color:var(--primary);border-radius:14px;padding:13px;font-weight:700;margin-top:8px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{padding:14px}.stat strong{display:block;font-size:22px}.stat small{color:var(--muted)}
+nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.94);backdrop-filter:blur(16px);border-top:1px solid var(--line);padding:8px 10px calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:center;z-index:5}.navin{max-width:520px;width:100%;display:flex;justify-content:space-around}.navbtn{background:none;color:#858896;padding:5px 16px;font-size:11px}.navbtn b{display:block;font-size:21px;line-height:24px}.navbtn.active{color:var(--primary)}
+.screen{display:none}.screen.active{display:block}
+.lessonhead{background:#fff;padding:12px 16px 16px;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:3}.back{background:#f0efff;color:var(--primary);border-radius:12px;padding:8px 12px;font-weight:700}.progress{height:7px;background:#e7e7ee;border-radius:10px;margin-top:12px}.progress i{display:block;height:100%;background:var(--primary);border-radius:10px}
+.flash{min-height:330px;display:flex;flex-direction:column;justify-content:center;text-align:center}.jp{font-size:42px;font-weight:800;margin:10px 0}.reading{font-size:19px;color:var(--primary);margin-bottom:8px}.meaning{font-size:19px;font-weight:700}.example{margin-top:20px;padding:13px;background:#f7f7fa;border-radius:14px;text-align:left;font-size:14px;line-height:1.6}.speak{display:inline-flex;background:#f0efff;color:var(--primary);border-radius:50%;width:48px;height:48px;align-items:center;justify-content:center;font-size:22px;margin-top:12px}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.actions button{padding:14px;border-radius:14px;font-weight:700}.outline{background:#fff;border:1px solid var(--line)}.purple{background:var(--primary);color:#fff}
+.qtext{font-size:21px;font-weight:800;line-height:1.45;margin:10px 0 18px}.options button{display:block;width:100%;padding:15px;text-align:left;background:#fff;border:1px solid var(--line);border-radius:14px;margin:9px 0}.options button.correct{border-color:var(--good);background:#eaf8f1}.options button.wrong{border-color:var(--bad);background:#fff0f0}.feedback{font-weight:700;margin-top:12px}
+.wordrow{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid var(--line)}.wordrow:last-child{border-bottom:0}.wordrow b{font-size:18px}.wordrow small{display:block;color:var(--primary);margin-top:3px}.wordrow span{color:var(--muted);font-size:13px;text-align:right;max-width:45%}
+.tag{display:inline-block;background:#f0efff;color:var(--primary);padding:5px 8px;border-radius:8px;font-size:12px;margin:3px}
+.note{font-size:13px;color:var(--muted);line-height:1.55}.hide{display:none!important}
+</style></head>
+<body>
+<div class="app">
+<section id="home" class="screen active">
+<header class="top"><div class="hello">JLPT N2 • 毎日2時間</div><h1>Xin chào 👋</h1>
+<div class="streak"><div><span>🔥 Chuỗi học tập</span> <b id="streak">1 ngày</b></div><div class="note" style="color:#eee;margin-top:4px">Mục tiêu hôm nay: 2 giờ</div><div class="bar"><i id="daybar" style="width:25%"></i></div></div></header>
+<main>
+<div class="section-title"><h2>Tiếp tục học</h2><span>Bài 1 / N2</span></div>
+<div class="card"><div class="lesson"><div class="icon">👨‍👩‍👧‍👦</div><div><h3>1課：親類・友人・知人</h3><p>Người thân • Bạn bè • Người quen</p></div><span class="pill" id="lessonPct">0%</span></div><button class="primary" onclick="openLesson()">Bắt đầu bài học →</button></div>
+<div class="section-title"><h2>Hôm nay</h2><span>Tiến độ</span></div>
+<div class="grid"><div class="card stat"><strong id="xp">0</strong><small>⭐ XP</small></div><div class="card stat"><strong id="learned">0</strong><small>📚 Từ đã học</small></div></div>
+<div class="section-title"><h2>Nội dung Bài 1</h2></div>
+<div class="card"><span class="tag">単語</span><span class="tag">語形成</span><span class="tag">たとえ</span><span class="tag">まるで</span><p class="note">Học từ vựng, nghe phát âm, kiểm tra trắc nghiệm và ôn lại từ sai.</p></div>
+</main></section>
+
+<section id="lesson" class="screen">
+<div class="lessonhead"><button class="back" onclick="show('home')">← Home</button><div class="progress"><i id="lprog" style="width:0%"></i></div></div>
+<main>
+<div id="lessonMenu">
+<div class="section-title"><h2>1課：親類・友人・知人</h2></div>
+<div class="card lesson"><div class="icon">🃏</div><div><h3>Flashcard</h3><p>Học 39 từ và cụm từ</p></div></div><button class="primary" onclick="startFlash()">Học từ vựng</button>
+<div class="card lesson"><div class="icon">🎧</div><div><h3>Nghe & phát âm</h3><p>Nghe tiếng Nhật bằng giọng hệ thống</p></div></div><button class="secondary" onclick="startFlash()">Luyện nghe</button>
+<div class="card lesson"><div class="icon">🧠</div><div><h3>Quiz</h3><p>10 câu kiểm tra nhanh</p></div></div><button class="secondary" onclick="startQuiz()">Làm Quiz</button>
+<div class="card lesson"><div class="icon">📝</div><div><h3>語形成 & 表現</h3><p>〜仲間・〜合い・取り〜・〜遣い</p></div></div><button class="secondary" onclick="show('forms')">Học cấu tạo từ</button>
+</div>
+<div id="flashWrap" class="hide">
+<div class="card flash"><div id="fcount" class="note"></div><div class="jp" id="fjp"></div><div class="reading" id="fread"></div><div class="meaning" id="fmeaning"></div><button class="speak" onclick="speakCurrent()">🔊</button><div class="example" id="fex"></div></div>
+<div class="actions"><button class="outline" onclick="prevCard()">← Trước</button><button class="purple" onclick="nextCard()">Tiếp →</button></div>
+</div>
+<div id="quizWrap" class="hide"><div class="card"><div id="qcount" class="note"></div><div class="qtext" id="qtext"></div><div class="options" id="opts"></div><div class="feedback" id="feedback"></div></div><button class="primary hide" id="nextq" onclick="nextQuestion()">Câu tiếp →</button></div>
+</main></section>
+
+<section id="forms" class="screen"><div class="lessonhead"><button class="back" onclick="show('lesson')">← Bài 1</button></div><main><div class="section-title"><h2>語形成 語のつながり</h2></div>
+<div class="card"><h3>〜仲間</h3><p class="note">Chỉ người cùng nhóm/cùng hoạt động.</p><div class="wordrow"><b>仕事仲間<small>しごとなかま</small></b><span>người cùng làm việc</span></div><div class="wordrow"><b>勉強仲間<small>べんきょうなかま</small></b><span>bạn cùng học</span></div><div class="wordrow"><b>飲み仲間<small>のみなかま</small></b><span>bạn cùng uống</span></div></div>
+<div class="card"><h3>〜合い</h3><p class="note">Thường diễn tả hành động tương hỗ/cùng nhau.</p><div class="wordrow"><b>知り合い<small>しりあい</small></b><span>người quen</span></div><div class="wordrow"><b>付き合い<small>つきあい</small></b><span>quan hệ/giao du</span></div><div class="wordrow"><b>話し合い<small>はなしあい</small></b><span>thảo luận</span></div></div>
+<div class="card"><h3>取り〜</h3><p class="note">Thường mang ý lấy, xử lý hoặc thực hiện một hành động.</p><div class="wordrow"><b>取り消す<small>とりけす</small></b><span>hủy bỏ</span></div><div class="wordrow"><b>取り出す<small>とりだす</small></b><span>lấy ra</span></div><div class="wordrow"><b>取り替える<small>とりかえる</small></b><span>thay thế</span></div></div>
+<div class="card"><h3>〜遣い</h3><p class="note">Cách sử dụng, tiêu dùng hoặc đối xử.</p><div class="wordrow"><b>言葉遣い<small>ことばづかい</small></b><span>cách ăn nói</span></div><div class="wordrow"><b>金遣い<small>かねづかい</small></b><span>cách tiêu tiền</span></div><div class="wordrow"><b>気遣い<small>きづかい</small></b><span>sự quan tâm</span></div></div>
+<div class="card"><h3>表現</h3><div class="wordrow"><b>たとえ<small>たとえ〜ても</small></b><span>cho dù</span></div><div class="wordrow"><b>ちょっとも<small>ちょっとも〜ない</small></b><span>một chút cũng không</span></div><div class="wordrow"><b>まるで<small>まるで〜ようだ</small></b><span>cứ như là</span></div></div>
+</main></section>
+
+<section id="review" class="screen"><header class="top"><div class="hello">Ôn tập</div><h1>Từ đã học 📚</h1></header><main><div class="card"><h3>Tiến độ Bài 1</h3><p class="note">Mỗi lần bạn đi qua một flashcard, từ đó được ghi nhận là đã học.</p><div class="bar" style="background:#e7e7ee"><i id="rbar" style="width:0%;background:var(--primary)"></i></div></div><div class="card" id="reviewList"></div></main></section>
+</div>
+<nav><div class="navin"><button class="navbtn active" data-s="home" onclick="show('home')"><b>⌂</b>Home</button><button class="navbtn" data-s="lesson" onclick="openLesson()"><b>📖</b>Bài học</button><button class="navbtn" data-s="review" onclick="show('review')"><b>🔁</b>Ôn tập</button></div></nav>
+
+<script>
+const words=[
+["祖先","そせん","tổ tiên","祖先を大切にする。"],["子孫","しそん","con cháu, hậu duệ","子孫に伝える。"],["祖父母","そふぼ","ông bà","祖父母の家を訪ねる。"],["孫","まご","cháu","孫と遊ぶ。"],["三世代","さんせだい","ba thế hệ","三世代で暮らす。"],["一家","いっか","cả gia đình","一家で旅行する。"],["親類","しんるい","họ hàng","親類の集まりに参加する。"],["集まり","あつまり","cuộc tụ họp","親類の集まりがある。"],["親孝行","おやこうこう","hiếu thảo với cha mẹ","親孝行をしたい。"],["実家","じっか","nhà bố mẹ đẻ","週末に実家へ帰る。"],["懐かしい","なつかしい","hoài niệm, nhớ","昔の写真を見ると懐かしい。"],["三人姉妹","さんにんしまい","ba chị em gái","三人姉妹は仲がいい。"],["末っ子","すえっこ","con út","私は三人兄弟の末っ子です。"],["一人っ子","ひとりっこ","con một","彼は一人っ子です。"],["双子","ふたご","sinh đôi","双子の姉妹です。"],["仲良し","なかよし","thân thiết, bạn thân","二人はとても仲良しだ。"],["仕事仲間","しごとなかま","người cùng làm việc","仕事仲間と相談する。"],["知人","ちじん","người quen (trang trọng)","知人から連絡があった。"],["知り合い","しりあい","người quen","知り合いに聞いてみる。"],["奥様","おくさま","vợ của người khác","奥様はお元気ですか。"],["お母様","おかあさま","mẹ của người khác","お母様によろしくお伝えください。"],["お父様","おとうさま","bố của người khác","お父様はお元気ですか。"],["お嬢ちゃん","おじょうちゃん","bé gái/con gái nhà người khác","お嬢ちゃん、こんにちは。"],["お坊ちゃん","おぼっちゃん","bé trai/con trai nhà người khác","お坊ちゃんも一緒ですか。"],["夫妻","ふさい","vợ chồng","夫妻で参加する。"],["婦人","ふじん","phụ nữ, quý bà","婦人服売り場です。"],["職場","しょくば","nơi làm việc","職場の人と話す。"],["上司","じょうし","cấp trên","上司に報告する。"],["部下","ぶか","cấp dưới","部下を指導する。"],["先輩","せんぱい","tiền bối","先輩に教えてもらう。"],["後輩","こうはい","hậu bối","後輩を助ける。"],["目上","めうえ","người trên về địa vị/tuổi tác","目上の人には丁寧に話す。"],["目下","めした","người dưới","目下の人にも親切にする。"],["年上","としうえ","lớn tuổi hơn","年上の人を尊敬する。"],["年下","としした","nhỏ tuổi hơn","年下の友達がいる。"],["同い年","おないどし","cùng tuổi","彼と私は同い年です。"],["周囲","しゅうい","xung quanh, người xung quanh","周囲の人に配慮する。"],["親しい","したしい","thân thiết","親しい友人です。"],["コミュニケーション","こみゅにけーしょん","giao tiếp","コミュニケーションが大切だ。"],["守る","まもる","tuân thủ, bảo vệ","ルールを守る。"],["破る","やぶる","phá vỡ, vi phạm","約束を破る。"],["取り消す","とりけす","hủy bỏ","予約を取り消す。"],["言葉遣い","ことばづかい","cách ăn nói","言葉遣いに気をつける。"],["握手","あくしゅ","bắt tay","初対面で握手する。"],["お辞儀","おじぎ","cúi chào","会ったらお辞儀をする。"],["長年","ながねん","nhiều năm","長年の友人です。"]
+];
+let state=JSON.parse(localStorage.getItem("n2state")||'{"learned":[],"xp":0,"quizBest":0}');
+let idx=0,qidx=0,score=0;
+function save(){localStorage.setItem("n2state",JSON.stringify(state));updateStats()}
+function updateStats(){document.querySelectorAll("#xp").forEach(e=>e.textContent=state.xp);document.querySelectorAll("#learned").forEach(e=>e.textContent=state.learned.length);let p=Math.round(state.learned.length/words.length*100);document.getElementById("lessonPct").textContent=p+"%";document.getElementById("lprog").style.width=p+"%";document.getElementById("rbar").style.width=p+"%";document.getElementById("daybar").style.width=Math.min(100,Math.round(state.xp/100*100))+"%";renderReview()}
+function show(id){document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".navbtn").forEach(x=>x.classList.toggle("active",x.dataset.s===id));window.scrollTo(0,0);updateStats()}
+function openLesson(){show("lesson");document.getElementById("lessonMenu").classList.remove("hide");document.getElementById("flashWrap").classList.add("hide");document.getElementById("quizWrap").classList.add("hide")}
+function startFlash(){document.getElementById("lessonMenu").classList.add("hide");document.getElementById("flashWrap").classList.remove("hide");idx=0;renderCard()}
+function renderCard(){let w=words[idx];document.getElementById("fcount").textContent=`${idx+1} / ${words.length}`;document.getElementById("fjp").textContent=w[0];document.getElementById("fread").textContent=w[1];document.getElementById("fmeaning").textContent=w[2];document.getElementById("fex").textContent=w[3];if(!state.learned.includes(idx)){state.learned.push(idx);state.xp+=2;save()}document.getElementById("lprog").style.width=Math.round((idx+1)/words.length*100)+"%"}
+function speakCurrent(){let w=words[idx];speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(w[0]);u.lang="ja-JP";u.rate=.78;speechSynthesis.speak(u)}
+function nextCard(){if(idx<words.length-1){idx++;renderCard()}else{alert("🎉 Hoàn thành Flashcard! +20 XP");state.xp+=20;save();openLesson()}}
+function prevCard(){if(idx>0){idx--;renderCard()}}
+function startQuiz(){document.getElementById("lessonMenu").classList.add("hide");document.getElementById("quizWrap").classList.remove("hide");qidx=0;score=0;nextQuestion()}
+function nextQuestion(){if(qidx>=10){alert(`🎉 Bạn đạt ${score}/10!`);state.xp+=score*5;state.quizBest=Math.max(state.quizBest,score);save();openLesson();return}let wi=(qidx*4+3)%words.length,w=words[wi];document.getElementById("qcount").textContent=`Câu ${qidx+1} / 10`;document.getElementById("qtext").textContent=`「${w[0]}」 nghĩa là gì?`;let choices=[w[2]];while(choices.length<4){let c=words[Math.floor(Math.random()*words.length)][2];if(!choices.includes(c))choices.push(c)}choices.sort(()=>Math.random()-.5);let opts=document.getElementById("opts");opts.innerHTML="";document.getElementById("feedback").textContent="";document.getElementById("nextq").classList.add("hide");choices.forEach(c=>{let b=document.createElement("button");b.textContent=c;b.onclick=()=>{document.querySelectorAll(".options button").forEach(x=>x.disabled=true);if(c===w[2]){b.classList.add("correct");score++;document.getElementById("feedback").textContent="✓ Chính xác!";}else{b.classList.add("wrong");document.getElementById("feedback").textContent="✗ Đáp án đúng: "+w[2]}document.getElementById("nextq").classList.remove("hide")};opts.appendChild(b)});qidx++}
+function renderReview(){let box=document.getElementById("reviewList");if(!box)return;let arr=state.learned.slice(-12).reverse();box.innerHTML=arr.length?arr.map(i=>`<div class="wordrow"><b>${words[i][0]}<small>${words[i][1]}</small></b><span>${words[i][2]}</span></div>`).join(""):'<p class="note">Chưa có từ nào. Hãy bắt đầu Bài 1 nhé!</p>'}
+updateStats();
+</script></body></html>
