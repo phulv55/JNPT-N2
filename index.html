@@ -20,7 +20,6 @@ nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.94);back
 .actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.actions button{padding:14px;border-radius:14px;font-weight:700}.outline{background:#fff;border:1px solid var(--line)}.purple{background:var(--primary);color:#fff}
 .qtext{font-size:21px;font-weight:800;line-height:1.45;margin:10px 0 18px}.options button{display:block;width:100%;padding:15px;text-align:left;background:#fff;border:1px solid var(--line);border-radius:14px;margin:9px 0}.options button.correct{border-color:var(--good);background:#eaf8f1}.options button.wrong{border-color:var(--bad);background:#fff0f0}.feedback{font-weight:700;margin-top:12px}
 .wordrow{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid var(--line)}.wordrow:last-child{border-bottom:0}.wordrow b{font-size:17px}.wordrow small{display:block;color:var(--primary);margin-top:3px}.wordrow span{color:var(--muted);font-size:13px;text-align:right;max-width:50%}
-.tag{display:inline-block;background:#f0efff;color:var(--primary);padding:5px 8px;border-radius:8px;font-size:12px;margin:3px}
 .note{font-size:13px;color:var(--muted);line-height:1.55}.hide{display:none!important}
 </style></head>
 <body>
@@ -36,6 +35,9 @@ nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.94);back
 
 <!-- BÀI 2 CARD -->
 <div class="card"><div class="lesson"><div class="icon">🎭</div><div><h3>2課：人の性格・特徴</h3><p>Tính cách & Đặc điểm con người (53 từ)</p></div><span class="pill" id="l2Pct">0%</span></div><button class="primary" onclick="openLesson(2)">Học Bài 2 →</button></div>
+
+<!-- BÀI 3 CARD -->
+<div class="card"><div class="lesson"><div class="icon">💗</div><div><h3>3課：人に対する感情・行動</h3><p>Cảm xúc & Hành động đối với người khác (62 từ)</p></div><span class="pill" id="l3Pct">0%</span></div><button class="primary" onclick="openLesson(3)">Học Bài 3 →</button></div>
 
 <div class="section-title"><h2>Tiến độ tổng quát</h2></div>
 <div class="grid"><div class="card stat"><strong id="xp">0</strong><small>⭐ XP</small></div><div class="card stat"><strong id="learned">0</strong><small>📚 Từ đã học</small></div></div>
@@ -86,6 +88,15 @@ nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.94);back
 <div class="card"><h3>⑤ Cụm từ quan trọng</h3><div class="wordrow"><b>わざと<small>わざと</small></b><span>cố ý, cố tình</span></div><div class="wordrow"><b>一切〜ない<small>いっさい〜ない</small></b><span>hoàn toàn không...</span></div><div class="wordrow"><b>めっきり<small>めっきり</small></b><span>rõ rệt, hẳn đi</span></div><div class="wordrow"><b>相変わらず<small>あいかわらず</small></b><span>vẫn như trước</span></div></div>
 </main></section>
 
+<!-- SCREEN CẤU TẠO TỪ BÀI 3 -->
+<section id="forms3" class="screen"><div class="lessonhead"><button class="back" onclick="show('lesson')">← Bài 3</button></div><main><div class="section-title"><h2>Bài 3: 語形成 & 副詞</h2></div>
+<div class="card"><h3>① ～がる</h3><p class="note">Tỏ ra có cảm xúc/mong muốn (dùng cho người khác).</p><div class="wordrow"><b>嫌がる<small>いやがる</small></b><span>tỏ ra khó chịu / không thích</span></div><div class="wordrow"><b>寒がる<small>さむがる</small></b><span>tỏ ra lạnh</span></div><div class="wordrow"><b>欲しがる<small>ほしがる</small></b><span>tỏ ra muốn có</span></div></div>
+<div class="card"><h3>② ～らしい</h3><p class="note">N + らしい → có vẻ/có nét...</p><div class="wordrow"><b>憎らしい<small>にくらしい</small></b><span>đáng ghét đến khó chịu</span></div><div class="wordrow"><b>可愛らしい<small>かわいらしい</small></b><span>trông rất đáng yêu</span></div></div>
+<div class="card"><h3>③ ～つける</h3><p class="note">Động từ ghép với つける.</p><div class="wordrow"><b>言いつける<small>いいつける</small></b><span>ra lệnh / dặn / mách</span></div><div class="wordrow"><b>結びつける<small>むすびつける</small></b><span>liên kết, gắn kết</span></div><div class="wordrow"><b>傷つける<small>きずつける</small></b><span>làm tổn thương</span></div></div>
+<div class="card"><h3>④ ～める</h3><p class="note">Làm tăng mức độ/mở rộng (Tha động từ).</p><div class="wordrow"><b>広める<small>ひろめる</small></b><span>phổ biến, lan truyền</span></div><div class="wordrow"><b>強める<small>つよめる</small></b><span>làm mạnh lên, tăng cường</span></div><div class="wordrow"><b>高める<small>たかめる</small></b><span>nâng cao (chất lượng/kỹ năng)</span></div></div>
+<div class="card"><h3>⑤ 副詞（Phó từ quan trọng）</h3><div class="wordrow"><b>まさに<small>まさに</small></b><span>đúng là, chính xác là</span></div><div class="wordrow"><b>思い切って<small>おもいきって</small></b><span>mạnh dạn, quyết tâm</span></div><div class="wordrow"><b>ようやく<small>ようやく</small></b><span>cuối cùng thì (mãi mới)</span></div><div class="wordrow"><b>いつの間にか<small>いつのまにか</small></b><span>chẳng biết từ lúc nào</span></div></div>
+</main></section>
+
 <section id="review" class="screen"><header class="top"><div class="hello">Ôn tập</div><h1>Từ đã học 📚</h1></header><main><div class="card"><h3>Tiến độ tổng hợp</h3><p class="note">Danh sách các từ vựng bạn đã đi qua qua các thẻ Flashcard.</p><div class="bar" style="background:#e7e7ee"><i id="rbar" style="width:0%;background:var(--primary)"></i></div></div><div class="card" id="reviewList"></div></main></section>
 </div>
 
@@ -97,7 +108,11 @@ const wordsLesson1=[
 ];
 
 const wordsLesson2=[
-["積極的","せっきょくてき","tích cực, chủ động","彼は積極的な性格です。"],["消極的","しょうきょくてき","tiêu cực, thụ動","彼は少し消極的です。"],["おとなしい","おとなしい","hiền, ít nói, trầm","彼女はおとなしい人です。"],["やかましい","やかましい","ồn ào, ầm ĩ","やかましい声。"],["慎重","しんちょう","thận trọng","仕事では慎重な性格のほうがいいと思います。"],["そそっかしい","そそっかしい","hấp tấp, cẩu thả","彼はそそっかしくて、よくミスをします。"],["きちんとした","きちんとした","chỉn chu, ngăn nắp","きちんとした服を着る。"],["だらしない","だらしない","luộm thuộm, bê bối","だらしない生活。"],["器用な","きような","khéo léo","彼女は手先が器用だ。"],["不器用な","ぶきような","vụng về","私は手先が不器用です。"],["要領がいい","ようりょうがいい","biết cách làm việc, nhanh nhạy","彼は要領がいい。"],["要領が悪い","ようりょうがわるい","làm việc không hiệu quả","私は要領が悪い。"],["謙虚な","けんきょな","khiêm tốn","謙虚な態度。"],["生意気な","なまいきな","hỗn, láo, xấc xược","生意気な態度をとる。"],["勘が鋭い","かんがするどい","trực giác nhạy bén","彼女は勘が鋭い。"],["勘が鈍い","かんがにぶい","trực giác kém, chậm cảm nhận","私は勘が鈍い。"],["弱気な","よわきな","yếu thế, thiếu tự tin","弱気な発言。"],["強気な","つよきな","mạnh dạn, cứng rắn","強気な姿勢。"],["頼もしい","たのもしい","đáng tin cậy (năng lực)","彼は頼もしい先輩です。"],["頼りになる","たよりになる","có thể dựa vào","困ったとき、彼はいつも頼りになります。"],["礼儀正しい","れいぎただしい","lễ phép, lịch sự","彼はとても礼儀正しい人です。"],["冷静な","れいせいな","bình tĩnh, điềm tĩnh","問題が起きても、彼は冷静です。"],["陽気な","ようきな","vui vẻ, hoạt bát","彼は陽気な性格です。"],["ユーモア","ゆーもあ","khiếu hài hước","彼はユーモアがあります。"],["はきはき","はきはき","rõ ràng, dứt khoát","彼女ははきはき話します。"],["にこにこ","にこにこ","cười tươi, mỉm cười","彼はいつもにこにこしています。"],["純粋な","じゅんすいな","thuần khiết, trong sáng","彼は純粋な心を持っています。"],["穏やかな","おだやかな","ôn hòa, dịu dàng","彼は穏やかな性格です。"],["わがまま","わがまま","ích kỷ, theo ý mình","彼はわがままな人です。"],["強引","ごういん","cưỡng ép, áp đặt","彼は強引に仕事を進めました。"],["厚かましい","あつかましい","trơ trẽn, mặt dày","そんなことを頼むなんて、厚かましい。"],["図々しい","ずうずうしい","trơ tráo, không biết ngại","図々しい振る舞い。"],["けちな","けちな","keo kiệt","彼はお金にけちです。"],["乱暴な","らんぼうな","thô bạo, cục cần","乱暴な言葉を使わないでください。"],["気が荒い","きがあらい","nóng tính, hung dữ","彼は気が荒いので、注意してください。"],["卑怯な","ひきょうな","hèn hạ, chơi không đẹp","そんなやり方は卑怯だ。"],["平気","へいき","bình thản, không sao","彼は失敗しても平気です。"],["裏切る","うらぎる","phản bội","友達を裏切ってはいけません。"],["威張る","いばる","lên mặt, vênh váo","彼はいつも威張っています。"],["ふざける","ふざける","đùa cợt, làm trò","ふざけないでください。"],["飽きる","あきる","chán, thấy ngán","同じ仕事をしていると飽きます。"],["飽きっぽい","あきっぽい","nhanh chán, cả thèm chóng chán","私は飽きっぽい性格です。"],["慌てる","あわてる","cuống, hoảng hốt","急な質問に慌ててしまいました。"],["呑気な","のんきな","vô tư, thảnh thơi (ít lo nghĩ)","彼は試験の前なのに、呑気に遊んでいる。"],["のんびり","のんびり","thong thả, thư thả","週末はのんびり過ごしたい。"],["率直","そっちょく","thẳng thắn","率直に言えば、私は反対です。"],["心理","しんり","tâm lý","人の心理を理解する。"],["緊張","きんちょう","căng thẳng, hồi hộp","面接で緊張しました。"],["どきどき","どきどき","hồi hộp, tim đập thình thịch","試験の結果を待って、どきどきしています。"],["イライラする","いらいらする","bực bội, cáu kỉnh","仕事がうまくいかなくて、イライラしています。"],["気楽","きらく","thoải mái, nhẹ nhõm","気楽に考えてください。"],["機嫌","きげん","tâm trạng","今日は上司の機嫌がいい。"],["見かけ","みかけ","vẻ bề ngoài, diện mạo","見かけだけで人を判断してはいけません。"]
+["積極的","せっきょくてき","tích cực, chủ động","彼は積極的な性格です。"],["消極的","しょうきょくてき","tiêu cực, thụ動","彼は少し消極的です。"],["おとなしい","おとなしい","hiền, ít nói, trầm","彼女はおとなしい人です。"],["やかましい","やかましい","ồn ào, ầm ĩ","やかましい声。"],["慎重","しんちょう","thận trọng","仕事では慎重な性格のほうがいいと思います。"],["そそっかしい","そそっかしい","hấp tấp, cẩu thả","彼はそそっかしくて、よくミスをします。"],["きちんとした","きちんとした","chỉn chu, ngăn nắp","きちんとした服を着る。"],["だらしない","だらしない","luộm thuộm, bê bối","だらしない生活。"],["器用な","きような","khéo léo","彼女は手先が器用だ。"],["不器用な","ぶきような","vụng về","私は手先が不器用です。"],["要領がいい","ようりょうがいい","biết cách làm việc, nhanh nhạy","彼は要領がいい。"],["要領が悪い","ようりょうがわるい","làm việc không hiệu quả","私は要領が悪い。"],["謙虚な","けんきょな","khiêm tốn","謙虚な態度。"],["生意気な","なまいきな","hỗn, láo, xấc xược","生意気な態度をとる。"],["勘が鋭い","かんがするどい","trực giác nhạy bén","彼女は勘が鋭い。"],["勘が鈍い","かんがにぶい","trực giác kém, chậm cảm nhận","私は勘が鈍い。"],["弱気な","よわきな","yếu thế, thiếu tự tin","弱気な発言。"],["強気な","つよきな","mạnh dạn, cứng rắn","強気な姿勢。"],["頼もしい","たのもしい","đáng tin cậy (năng lực)","彼は頼もしい先輩です。"],["頼りになる","たよりになる","có thể dựa vào","困ったとき、彼はいつも頼りになります。"],["礼儀正しい","れいぎただしい","lễ phép, lịch sự","彼はとても礼儀正しい人です。"],["冷静な","れいせいな","bình tĩnh, điềm tĩnh","問題が起きても、彼は冷静です。"],["陽気な","ようきな","vui vẻ, hoạt bát","彼は陽気な性格です。"],["ユーモア","ゆーもあ","khiếu hài hước","彼はユーモアがあります。"],["はきはき","はきはき","rõ ràng, dứt khoát","彼女ははきはき話します。"],["にこにこ","にこにこ","cười tươi, mím cười","彼はいつもにこにこしています。"],["純粋な","じゅんすいな","thuần khiết, trong sáng","彼は純粋な心を持っています。"],["穏やかな","おだやかな","ôn hòa, dịu dàng","彼は穏やかな性格です。"],["わがまま","わがまま","ích kỷ, theo ý mình","彼はわがままな人です。"],["強引","ごういん","cưỡng ép, áp đặt","彼は強引に仕事を進めました。"],["厚かましい","あつかましい","trơ trẽn, mặt dày","そんなことを頼むなんて、厚かましい。"],["図々しい","ずうずうしい","trơ tráo, không biết ngại","図々しい振る舞い。"],["けちな","けちな","keo kiệt","彼はお金にけちです。"],["乱暴な","らんぼうな","thô bạo, cục cần","乱暴な言葉を使わないでください。"],["気が荒い","きがあらい","nóng tính, hung dữ","彼は気が荒いので、注意してください。"],["卑怯な","ひきょうな","hèn hạ, chơi không đẹp","そんなやり方は卑怯だ。"],["平気","へいき","bình thản, không sao","彼は失敗しても平気です。"],["裏切る","うらぎる","phản bội","友達を裏切ってはいけません。"],["威張る","いばる","lên mặt, vênh váo","彼はいつも威張っています。"],["ふざける","ふざける","đùa cợt, làm trò","ふざけないでください。"],["飽きる","あきる","chán, thấy ngán","同じ仕事をしていると飽きます。"],["飽きっぽい","あきっぽい","nhanh chán, cả thèm chóng chán","私は飽きっぽい性格です。"],["慌てる","あわてる","cuống, hoảng hốt","急な質問に慌ててしまいました。"],["呑気な","のんきな","vô tư, thảnh thơi (ít lo nghĩ)","彼は試験の前なのに、呑気に遊んでいる。"],["のんびり","のんびり","thong thả, thư thả","週末はのんびり過ごしたい。"],["率直","そっちょく","thẳng thắn","率直に言えば、私は反対です。"],["心理","しんり","tâm lý","人の心理を理解する。"],["緊張","きんちょう","căng thẳng, hồi hộp","面接で緊張しました。"],["どきどき","どきどき","hồi hộp, tim đập thình thịch","試験の結果を待って、どきどきしています。"],["イライラする","いらいらする","bực bội, cáu kỉnh","仕事がうまくいかなくて、イライラしています。"],["気楽","きらく","thoải mái, nhẹ nhõm","気楽に考えてください。"],["機嫌","きげん","tâm trạng","今日は上司の機嫌がいい。"],["見かけ","みかけ","vẻ bề ngoài, diện mạo","見かけだけで人を判断してはいけません。"]
+];
+
+const wordsLesson3=[
+["うらやむ","うらやむ","ghen tị, ao ước","彼の才能をうらやんでいる。"],["尊敬する","そんけいする","kính trọng","私は仕事に対する彼の姿勢を尊敬しています。"],["敬う","うやまう","tôn kính, kính trọng","年長者を敬う。"],["疑う","うたがう","nghi ngờ","彼の話を疑っている。"],["恐れる","おそれる","sợ, lo sợ, e ngại","失敗を恐れてはいけない。"],["憎む","にくむ","căm ghét, căm hận","戦争を憎む。"],["恨む","うらむ","oán hận, trách móc","彼を恨んでいる。"],["嫌う","きらう","ghét, không thích","彼は人付き合いを嫌う。"],["嫌がる","いやがる","tỏ ra không muốn / khó chịu","子供が薬を飲むのを嫌がっている。"],["敬意","けいい","sự kính trọng","相手に敬意を払う。"],["憧れる","あこがれる","ngưỡng mộ, khao khát","日本で働くことに憧れている。"],["恩","おん","ơn, ân nghĩa","先生には大変お世話になり、恩を感じている。"],["失望する","しつぼうする","thất vọng","期待していたので、結果を見て失望した。"],["うらやましい","うらやましい","đáng ghen tị","彼の自由な生活がうらやましい。"],["憎い","にくい","đáng ghét, căm ghét","あの人が憎い。"],["憎らしい","にくらしい","đáng ghét đến mức khó chịu"," really 憎らしいやつだ。"],["哀れ","あわれ","đáng thương, thảm thương","哀れな人。"],["気の毒","きのどく","tội nghiệp, đáng thương","それはお気の毒ですね。"],["申し訳ない","もうしわけない","xin lỗi, cảm thấy có lỗi","ご迷惑をおかけして、申し訳ありません。"],["済まない","すまない","xin lỗi, áy náy"," really 済まない。"],["ありがたい","ありがたい","biết ơn, đáng quý","手伝ってもらえてありがたいです。"],["慰める","なぐさめる","an ủi","失恋した彼女を慰めた。"],["貶す","けなす","chê bai, hạ thấp","人の仕事を貶す。"],["罵る","ののしる","chửi rủa, mắng nhiếc","相手を罵る。"],["睨む","にらむ","lườm, nhìn chằm chằm","彼に睨まれた。"],["避ける","さける","tránh","トラブルを避ける。"],["助言","じょげん","lời khuyên","上司から助言を受ける。"],["忠告","ちゅうこく","khuyên bảo, cảnh báo","友達に忠告する。"],["言いつける","いいつける","ra lệnh, mách","先生に言いつける。"],["皮肉","ひにく","mỉa mai, châm biếm","皮肉な言い方。"],["ぶつぶつ","ぶつぶつ","lẩm bẩm, càu nhàu","彼は何かぶつぶつ言っている。"],["不平","ふへい","bất bình, phàn nàn","仕事について不平を言う。"],["自慢","じまん","tự hào, khoe khoang","息子のことを自慢する。"],["怒鳴る","どなる","quát tháo, hét","大声で怒鳴る。"],["隠す","かくす","che giấu","感情を隠す。"],["広める","ひろめる","lan truyền, phổ biến","日本文化を広める。"],["誤解する","ごかいする","hiểu lầm","私の言葉を誤解しないでください。"],["誤解を解く","ごかいをほどく","giải tỏa hiểu lầm","話し合った結果、誤解が解けた。"],["仲直りする","なかなおりする","làm lành, hòa giải","友達と仲直りする。"],["エチケット","えちけっと","phép lịch sự","食事のエチケット。"],["作法","さほう","lễ nghi, phép tắc","茶道の作法。"],["敬語","けいご","kính ngữ","先生に敬語を使う。"],["反抗的","はんこうてき","có tính chống đối","反抗的な態度を取る。"],["態度","たいど","thái độ","態度を改める。"],["道徳","どうとく","đạo đức","道徳を重視する。"],["重視する","じゅうしする","coi trọng, chú trọng","品質を重視する。"],["姿勢","しせい","tư thế, thái độ","仕事に対する姿勢。"],["みっともない","みっともない","xấu hổ, khó coi","そんなことをするのはみっともない。"],["服装","ふくそう","trang phục","適切な服装。"],["もてる","もてる","được yêu thích, có sức hút","彼は女性によくもてる。"],["理想","りそう","lý tưởng","理想の相手を見つける。"],["偶然","ぐうぜん","tình cờ, ngẫu nhiên","偶然の出会い。"],["見つける","みつける","tìm thấy","理想の相手を見つける。"],["冷める","さめる","nguội lạnh, hết yêu","彼への気持ちが冷めた。"],["振る","ふる","chia tay, từ chối (đá)","彼女に振られた。"],["失恋","しつれん","thất tình","失恋から立ち直る。"],["寒がる","さむがる","tỏ ra lạnh","子供が寒がっている。"],["欲しがる","ほしがる","tỏ ra muốn có","子供がおもちゃを欲しがっている。"],["可愛らしい","かわいらしい","đáng yêu, dễ thương","彼女は可愛らしい笑顔をしている。"],["結びつける","むすびつける","liên kết, gắn kết","二つの問題を結びつける。"],["まさに","まさに","đúng là, chính là","彼はまさに理想の上司だ。"],["思い切って","おもいきって","mạnh dạn, quyết tâm","思い切って日本語で話してみた。"],["ようやく","ようやく","cuối cùng thì","ようやく仕事が終わった。"],["いつの間にか","いつのまにか","chẳng biết từ lúc nào","いつの間にか日本語が好きになっていた。"]
 ];
 
 let currentLesson=1;
@@ -120,7 +135,11 @@ function updateStats(){
   let p2 = Math.round(l2Learned / wordsLesson2.length * 100);
   document.getElementById("l2Pct").textContent = p2 + "%";
 
-  let totalWords = wordsLesson1.length + wordsLesson2.length;
+  let l3Learned = state.learned.filter(k => k.startsWith("l3_")).length;
+  let p3 = Math.round(l3Learned / wordsLesson3.length * 100);
+  document.getElementById("l3Pct").textContent = p3 + "%";
+
+  let totalWords = wordsLesson1.length + wordsLesson2.length + wordsLesson3.length;
   let pTotal = Math.round(state.learned.length / totalWords * 100);
   document.getElementById("rbar").style.width = pTotal + "%";
   document.getElementById("daybar").style.width = Math.min(100, Math.round(state.xp/100*100)) + "%";
@@ -131,9 +150,15 @@ function show(id){document.querySelectorAll(".screen").forEach(x=>x.classList.re
 
 function openLesson(lNum){
   currentLesson = lNum;
-  words = (currentLesson === 1) ? wordsLesson1 : wordsLesson2;
+  if(currentLesson === 1) words = wordsLesson1;
+  else if(currentLesson === 2) words = wordsLesson2;
+  else words = wordsLesson3;
+
   show("lesson");
-  document.getElementById("lessonTitle").textContent = (currentLesson === 1) ? "1課：親類・友人・知人" : "2課：人の性格・特徴";
+  if(currentLesson === 1) document.getElementById("lessonTitle").textContent = "1課：親類・友人・知人";
+  else if(currentLesson === 2) document.getElementById("lessonTitle").textContent = "2課：人の性格・特徴";
+  else document.getElementById("lessonTitle").textContent = "3課：人に対する感情・行動";
+
   document.getElementById("fcSub").textContent = `Học ${words.length} từ vựng`;
   
   document.getElementById("lessonMenu").classList.remove("hide");
@@ -143,7 +168,8 @@ function openLesson(lNum){
 
 function showFormScreen() {
   if (currentLesson === 1) show('forms1');
-  else show('forms2');
+  else if (currentLesson === 2) show('forms2');
+  else show('forms3');
 }
 
 function startFlash(audioMode){
@@ -232,7 +258,7 @@ function renderReview(){
     let parts = key.split("_");
     let l = parseInt(parts[0].replace("l",""));
     let i = parseInt(parts[1]);
-    let w = (l===1) ? wordsLesson1[i] : wordsLesson2[i];
+    let w = (l===1) ? wordsLesson1[i] : (l===2 ? wordsLesson2[i] : wordsLesson3[i]);
     if(!w) return '';
     return `<div class="wordrow"><b>${w[0]}<small>${w[1]}</small></b><span>Bài ${l}: ${w[2]}</span></div>`;
   }).join(""): '<p class="note">Chưa có từ nào. Hãy bắt đầu học nhé!</p>';
